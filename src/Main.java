@@ -1,33 +1,50 @@
+import java.util.ArrayList;
+
+//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
+// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        Address jungle = new Address("India", "Jungle");
-        Address homeAddress = new Address("India", "Delhi");
-        Car car = new Car("2023", "Toyota");
-        Human human = new Human("Martin", homeAddress, false, HairColor.BLACK);
-        human.car = car;
-        Dog fluffy = new Dog();
-        human.addNewDog(fluffy);
+        System.out.println("Step one:");
+        Customer c1 = new Customer("Alice", "123456789");
+        Customer c2 = new Customer("Bob", "987654321");
+        c1.printCustomerDetails();
+        c2.printCustomerDetails();
 
-        human.drive(car, jungle);
+        System.out.println("Step two:");
+        Customer c3 = new Customer("Clara", "555444333");
+        c3.printCustomerDetails();
+        c3.startOrder();
+        c3.printCustomerDetails();
 
-        // Encounter a tiger
-        Tiger tiger = new Tiger();
-        System.out.println("A tiger appears!");
-        tiger.attackHumans();
-        human.isScared = true;
-        System.out.println("The human is now scared: " + human.name);
+        System.out.println("\nStep three:");
+        FoodItem pasta = new FoodItem("Pasta", 9.99, true);
+        DrinkItem cola = new DrinkItem("Cola", 2.49, true);
+        pasta.printItemDetails();
+        cola.printItemDetails();
 
-        // Driving back home, still scared, hair turns gray
-        human.drive(car, homeAddress);
-        human.hairColor = HairColor.GRAY;
-        System.out.println("Due to fear, the human’s hair turned " + human.hairColor);
+        System.out.println("\nStep four:");
+        Customer c4 = new Customer("David", "777666555");
+        ArrayList<MenuItem> menuItems = new ArrayList<>();
+        FoodItem pizza = new FoodItem("Pizza", 12.99, false);
+        menuItems.add(pizza);
+        Order order1 = new Order(c4, menuItems);
+        order1.printOrderDetails();
 
-        // Dogs love their human, fear goes away
-        System.out.println("At home, dogs show love to their human...");
-        for (Dog d : human.dogs) {
-            d.loveHuman(new Human[]{ human });
+        System.out.println("\nStep five:");
+        Waiter waiter = new Waiter("James");
+        waiter.serveOrder(order1);
+        c4.processPayment(order1.calculateTotalPrice());
+
+        System.out.println("\n" + "Step six:");
+        MenuItem[] items = {
+                new FoodItem("Salad", 5.99, true),
+                new DrinkItem("Coffee", 3.49, false),
+                new FoodItem("Steak", 14.99, false),
+                new DrinkItem("Juice", 4.25, true)
+        };
+
+        for (MenuItem item : items) {
+            item.printItemDetails();
         }
-        System.out.println("The human feels calm again and is no longer scared.");
-        human.isScared = false;
     }
 }
